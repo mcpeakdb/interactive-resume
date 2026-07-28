@@ -109,8 +109,25 @@ export const experience = [
         text: 'Built the integration between Discover phone agents and Capital One agent systems.',
         tags: ['backend'],
       },
+      {
+        text: 'Maintained vendor relationships with a workforce management suite, including updates to the SSO connection and supporting data pipelines.',
+        tags: ['leadership', 'backend', 'infra'],
+      },
     ],
-    projects: [],
+    projects: [
+      {
+        name: 'Voyant — schedule planning & bidding',
+        detail:
+          'Added features to the agent schedule planning and bidding application in the Voyant suite.',
+        tags: ['frontend', 'backend'],
+      },
+      {
+        name: 'Voyant — agent leveling',
+        detail:
+          'Built out an agent leveling application, replacing a manual spreadsheet process.',
+        tags: ['frontend', 'backend'],
+      },
+    ],
   },
   {
     id: 'kcm',
