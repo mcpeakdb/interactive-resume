@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danny McPeak Jr. — Lead Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Interactive resume for Danny McPeak Jr., Lead Full Stack Developer — Vue.js, GoLang, AWS and Docker."
+    />
+    <script>
+      // Resolve the theme before first paint so there is no flash of the wrong one.
+      ;(() => {
+        const stored = localStorage.getItem('theme')
+        const dark = stored
+          ? stored === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.classList.toggle('dark', dark)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
