@@ -27,65 +27,6 @@ export const profile = {
     'Innovative and passionate Full Stack Developer with a strong foundation in modern web technologies and cloud infrastructure. Demonstrated expertise in developing scalable applications, integrating complex systems, and delivering user-centric solutions.',
 }
 
-const CAREER_START = 2013
-
-/** Headline numbers, ordered by magnitude, each pulled from a bullet below. */
-export const stats = [
-  {
-    value: new Date().getFullYear() - CAREER_START,
-    suffix: '+',
-    label: 'Years in tech',
-  },
-  { value: 1000000, suffix: 's', label: 'Social posts automated' },
-  { value: 20000, suffix: '+', label: 'Agent records piped daily' },
-  { value: 10000, suffix: '+', label: 'SaaS members added' },
-  { value: 2000, suffix: '+', label: 'Devices under automated patching' },
-  { value: 200, suffix: '+', label: 'Retail stores served by VDI pool' },
-]
-
-export const skills = [
-  {
-    group: 'Languages & Frameworks',
-    items: [
-      { name: 'JavaScript', tag: 'frontend' },
-      { name: 'Vue.js', tag: 'frontend' },
-      { name: 'HTML', tag: 'frontend' },
-      { name: 'CSS', tag: 'frontend' },
-      { name: 'GoLang', tag: 'backend' },
-      { name: 'Ionic', tag: 'mobile' },
-    ],
-  },
-  {
-    group: 'Cloud & DevOps',
-    items: [
-      { name: 'AWS S3', tag: 'cloud' },
-      { name: 'AWS Lambda', tag: 'cloud' },
-      { name: 'AWS ECS', tag: 'cloud' },
-      { name: 'AWS RDS', tag: 'cloud' },
-      { name: 'AWS Kinesis', tag: 'cloud' },
-      { name: 'AWS DynamoDB', tag: 'cloud' },
-      { name: 'Docker', tag: 'devops' },
-      { name: 'CI/CD pipelines', tag: 'devops' },
-    ],
-  },
-  {
-    group: 'Data',
-    items: [
-      { name: 'MySQL', tag: 'backend' },
-      { name: 'NoSQL', tag: 'backend' },
-    ],
-  },
-  {
-    group: 'Mobile & Tools',
-    items: [
-      { name: 'Native Android', tag: 'mobile' },
-      { name: 'Native iOS', tag: 'mobile' },
-      { name: 'Capacitor', tag: 'mobile' },
-      { name: 'Git', tag: 'devops' },
-    ],
-  },
-]
-
 export const experience = [
   {
     id: 'capital-one',
@@ -274,6 +215,66 @@ export const experience = [
           'Built, deployed and maintained an instant-clone pool stacked with AppVolumes and VMware UEM, distributed to 200+ stores and able to run over a T1 connection.',
         tags: ['infra'],
       },
+    ],
+  },
+]
+
+// get last item (first by time) from experience array and get year from start date
+const CAREER_START = parseInt(experience[experience.length - 1].start.split('-')[0])
+
+/** Headline numbers, ordered by magnitude, each pulled from a bullet below. */
+export const stats = [
+  {
+    value: new Date().getFullYear() - CAREER_START,
+    suffix: '+',
+    label: 'Years in tech',
+  },
+  { value: 1000000, suffix: 's', label: 'Social posts automated' },
+  { value: 20000, suffix: '+', label: 'Agent records piped daily' },
+  { value: 10000, suffix: '+', label: 'SaaS members added' },
+  { value: 2000, suffix: '+', label: 'Devices under automated patching' },
+  { value: 200, suffix: '+', label: 'Retail stores served by VDI pool' },
+]
+
+export const skills = [
+  {
+    group: 'Languages & Frameworks',
+    items: [
+      { name: 'JavaScript', tag: 'frontend' },
+      { name: 'Vue.js', tag: 'frontend' },
+      { name: 'HTML', tag: 'frontend' },
+      { name: 'CSS', tag: 'frontend' },
+      { name: 'GoLang', tag: 'backend' },
+      { name: 'Ionic', tag: 'mobile' },
+    ],
+  },
+  {
+    group: 'Cloud & DevOps',
+    items: [
+      { name: 'AWS S3', tag: 'cloud' },
+      { name: 'AWS Lambda', tag: 'cloud' },
+      { name: 'AWS ECS', tag: 'cloud' },
+      { name: 'AWS RDS', tag: 'cloud' },
+      { name: 'AWS Kinesis', tag: 'cloud' },
+      { name: 'AWS DynamoDB', tag: 'cloud' },
+      { name: 'Docker', tag: 'devops' },
+      { name: 'CI/CD pipelines', tag: 'devops' },
+    ],
+  },
+  {
+    group: 'Data',
+    items: [
+      { name: 'MySQL', tag: 'backend' },
+      { name: 'NoSQL', tag: 'backend' },
+    ],
+  },
+  {
+    group: 'Mobile & Tools',
+    items: [
+      { name: 'Native Android', tag: 'mobile' },
+      { name: 'Native iOS', tag: 'mobile' },
+      { name: 'Capacitor', tag: 'mobile' },
+      { name: 'Git', tag: 'devops' },
     ],
   },
 ]
