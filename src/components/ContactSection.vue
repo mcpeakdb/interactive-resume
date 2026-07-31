@@ -17,8 +17,8 @@ import SectionHeading from './SectionHeading.vue'
             class="text-ink-700 dark:text-ink-200 max-w-xl text-lg leading-relaxed text-pretty"
           >
             Building something that needs a full-stack developer who has also run the
-            infrastructure underneath it? I'd like to hear about it — LinkedIn is the
-            best way to reach me.
+            infrastructure underneath it? I'd like to hear about it — LinkedIn is the best
+            way to reach me.
           </p>
 
           <div class="mt-7 flex flex-wrap gap-3">

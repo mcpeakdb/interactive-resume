@@ -46,7 +46,9 @@ const duration = computed(() => {
 <template>
   <article
     class="card relative transition-all duration-300"
-    :class="dimmed ? 'opacity-40 saturate-0' : 'hover:ring-ink-300 dark:hover:ring-ink-700'"
+    :class="
+      dimmed ? 'opacity-40 saturate-0' : 'hover:ring-ink-300 dark:hover:ring-ink-700'
+    "
   >
     <!-- Timeline node, aligned to the rail drawn by ExperienceSection. -->
     <span
@@ -79,7 +81,9 @@ const duration = computed(() => {
           </span>
         </div>
 
-        <p class="text-ink-500 dark:text-ink-400 mt-1 flex flex-wrap items-center gap-x-2 text-sm">
+        <p
+          class="text-ink-500 dark:text-ink-400 mt-1 flex flex-wrap items-center gap-x-2 text-sm"
+        >
           <span>{{ job.location }}</span>
           <span aria-hidden="true">·</span>
           <span class="tabular-nums">{{ span }}</span>
@@ -102,7 +106,9 @@ const duration = computed(() => {
       <span
         class="no-print text-ink-400 dark:text-ink-500 mt-1 flex shrink-0 items-center gap-2 text-xs"
       >
-        <span v-if="hasFilters" class="tabular-nums">{{ matchCount }} match{{ matchCount === 1 ? '' : 'es' }}</span>
+        <span v-if="hasFilters" class="tabular-nums"
+          >{{ matchCount }} match{{ matchCount === 1 ? '' : 'es' }}</span
+        >
         <AppIcon
           name="chevron"
           :size="20"
@@ -120,10 +126,7 @@ const duration = computed(() => {
     >
       <div class="overflow-hidden">
         <div class="border-ink-200 dark:border-ink-800 mx-5 border-t pt-5 pb-6 sm:mx-6">
-          <p
-            v-if="dimmed"
-            class="text-ink-400 dark:text-ink-500 text-sm italic"
-          >
+          <p v-if="dimmed" class="text-ink-400 dark:text-ink-500 text-sm italic">
             Nothing here matches the current filter.
           </p>
 
@@ -160,7 +163,9 @@ const duration = computed(() => {
                   <p class="text-ink-900 dark:text-ink-50 text-sm font-semibold">
                     {{ project.name }}
                   </p>
-                  <p class="text-ink-600 dark:text-ink-400 mt-1.5 text-sm leading-relaxed">
+                  <p
+                    class="text-ink-600 dark:text-ink-400 mt-1.5 text-sm leading-relaxed"
+                  >
                     {{ project.detail }}
                   </p>
                   <div class="mt-3 flex flex-wrap gap-1">

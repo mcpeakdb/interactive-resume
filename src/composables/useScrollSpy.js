@@ -10,8 +10,7 @@ export function useScrollSpy(ids, offset = 120) {
 
   function update() {
     const scroll = window.scrollY + offset
-    const atBottom =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 2
+    const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 2
 
     if (atBottom) {
       active.value = ids[ids.length - 1]

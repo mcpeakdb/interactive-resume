@@ -36,7 +36,11 @@ const styleFor = (tag) => tagStyle(TAGS[tag]?.color ?? 'slate')
                 type="button"
                 :aria-pressed="isActive(skill.tag)"
                 class="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium ring-1 transition duration-200 hover:-translate-y-px hover:shadow-sm"
-                :class="isActive(skill.tag) ? styleFor(skill.tag).active : styleFor(skill.tag).chip"
+                :class="
+                  isActive(skill.tag)
+                    ? styleFor(skill.tag).active
+                    : styleFor(skill.tag).chip
+                "
                 @click="toggle(skill.tag)"
               >
                 <span

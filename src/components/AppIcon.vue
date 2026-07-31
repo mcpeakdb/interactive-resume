@@ -7,6 +7,8 @@ const props = defineProps({
 })
 
 // Stroked 24x24 paths, drawn with currentColor.
+// A lookup table, kept one icon per line so it stays scannable.
+// prettier-ignore
 const PATHS = {
   mail: ['M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5z', 'm3.5 7 8.5 6 8.5-6'],
   phone: ['M4 5.5C4 4.7 4.7 4 5.5 4h2c.7 0 1.3.5 1.5 1.2l.7 2.8c.1.6-.1 1.2-.6 1.5l-1.3.9a12 12 0 0 0 5.8 5.8l.9-1.3c.4-.5.9-.7 1.5-.6l2.8.7c.7.2 1.2.8 1.2 1.5v2c0 .8-.7 1.5-1.5 1.5C10.6 20 4 13.4 4 5.5'],
