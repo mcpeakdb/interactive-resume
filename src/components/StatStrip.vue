@@ -24,7 +24,7 @@ onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <dl ref="root" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+  <dl ref="root" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
     <StatCounter
       v-for="(stat, i) in stats"
       :key="stat.label"

@@ -29,14 +29,16 @@ export const profile = {
 
 const CAREER_START = 2013
 
-/** Headline numbers pulled straight from the experience bullets below. */
+/** Headline numbers, ordered by magnitude, each pulled from a bullet below. */
 export const stats = [
   {
     value: new Date().getFullYear() - CAREER_START,
     suffix: '+',
     label: 'Years in tech',
   },
+  { value: 1000000, suffix: 's', label: 'Social posts automated' },
   { value: 20000, suffix: '+', label: 'Agent records piped daily' },
+  { value: 10000, suffix: '+', label: 'SaaS members added' },
   { value: 2000, suffix: '+', label: 'Devices under automated patching' },
   { value: 200, suffix: '+', label: 'Retail stores served by VDI pool' },
 ]
@@ -148,6 +150,11 @@ export const experience = [
         tags: ['frontend', 'backend'],
       },
       {
+        text: 'Helped manage the technical side of membership growth from 18,000 to 32,000 at peak.',
+        tags: ['leadership', 'backend'],
+        metric: '18,000 → 32,000 members',
+      },
+      {
         text: 'Implemented cloud-based solutions using AWS services like S3 and Lambda.',
         tags: ['cloud'],
       },
@@ -191,6 +198,12 @@ export const experience = [
       {
         name: 'Internal customer management tools',
         detail: 'Tooling for the team to manage customers and accounts directly.',
+        tags: ['frontend', 'backend'],
+      },
+      {
+        name: 'Social autoposting application',
+        detail:
+          'Scheduled and published social content on behalf of members, automating millions of posts.',
         tags: ['frontend', 'backend'],
       },
       {
