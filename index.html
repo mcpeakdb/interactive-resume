@@ -25,6 +25,13 @@
           ? motion === 'still'
           : window.matchMedia('(prefers-reduced-motion: reduce)').matches
         document.documentElement.classList.toggle('motion-still', still)
+
+        // Same for the skin, so the palette is right on the first frame. The
+        // allowlist keeps a stale or hand-edited value from stamping an
+        // attribute no stylesheet answers to.
+        const skins = ['racing', 'boba']
+        const skin = localStorage.getItem('skin')
+        document.documentElement.dataset.skin = skins.includes(skin) ? skin : skins[0]
       })()
     </script>
   </head>

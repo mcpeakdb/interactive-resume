@@ -3,12 +3,14 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { profile, sections } from '../data/resume'
 import { useMotion } from '../composables/useMotion'
 import { useScrollSpy } from '../composables/useScrollSpy'
+import { useSkin } from '../composables/useSkin'
 import { useTheme } from '../composables/useTheme'
 import SiteHeaderButton from './SiteHeaderButton.vue'
 
 const { active } = useScrollSpy(sections.map((s) => s.id))
 const { isDark, toggle } = useTheme()
 const { isStill, toggle: toggleMotion } = useMotion()
+const { next: nextSkin, cycle: cycleSkin } = useSkin()
 
 const scrolled = ref(false)
 const progress = ref(0)
@@ -76,6 +78,11 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="ml-auto flex items-center gap-1 md:ml-0">
+        <SiteHeaderButton
+          :icon="nextSkin.icon"
+          :label="`Switch to the ${nextSkin.label} theme`"
+          @click="cycleSkin"
+        />
         <SiteHeaderButton icon="printer" label="Print or save as PDF" @click="print" />
         <SiteHeaderButton
           :icon="isStill ? 'play' : 'pause'"

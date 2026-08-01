@@ -38,6 +38,8 @@ src/
   composables/
     useFilters.js   shared filter state (module-level singleton)
     useTheme.js     dark/light toggle + localStorage
+    useSkin.js      site-wide palette (skin) + localStorage
+    useMotion.js    hold-still switch for the looping animations
     useScrollSpy.js active section for the sticky nav
     useCountUp.js   eased 0 → target animation
     reveal.js       v-reveal scroll-into-view directive
@@ -130,6 +132,20 @@ Styling is Tailwind utilities inline. Only three shared classes exist, in `style
 `.card`, `.section-shell`, `.reveal`. Colors come from the custom `ink-*` ramp (a
 green-tinted neutral) plus emerald/teal accents. Dark mode is class-based (`.dark` on
 `<html>`), resolved by an inline script in `index.html` before first paint.
+
+**Skins are a second, orthogonal axis.** `data-skin` on `<html>` (also resolved
+pre-paint) selects a palette. A skin adds no classes and touches no component: it
+re-declares the `@theme` custom properties under `html[data-skin='…']`, so every
+utility resolving a colour through them follows along. The element in the selector is
+what outranks `:root` — a bare `[data-skin]` ties on specificity. Each skin owns the
+whole ramp, light end and dark end, so it composes with the dark toggle.
+
+Adding a skin means three edits: an entry in `SKINS` (`useSkin.js`), a token block in
+`style.css`, and the id in the pre-paint allowlist in `index.html`. Racing is the
+default; `boba` remaps ink to creams, emerald to taro, teal to caramel and race to
+brown sugar, and redraws `.checkers` as tapioca pearls. Keep new skins above 4.5:1 for
+body text — `scripts/check-contrast.mjs` only audits one palette at a time (it reads
+the last `--color-*` declaration wins, which is now the last skin block in the file).
 
 ## Constraints — do not break these
 

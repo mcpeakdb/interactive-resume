@@ -28,6 +28,141 @@
   --color-ink-950: #0a1310;
 }
 
+/* ── Skins ────────────────────────────────────────────────────────────────
+   A skin re-declares the tokens above rather than adding classes, so every
+   utility that resolves a colour through them changes with it and no component
+   needs to know a skin exists. `data-skin` is stamped on <html> before first
+   paint (index.html); the selector carries the element to outrank `:root`.
+
+   Each skin owns the whole ramp, light end and dark end, so it composes with
+   the dark-mode toggle instead of competing with it. */
+
+/* Boba — oat-milk creams over cocoa, taro as the accent, brown sugar for heat. */
+html[data-skin='boba'] {
+  /* Cream → cocoa. Muted body text (ink-500 light, ink-400 dark) holds 5.7:1. */
+  --color-ink-50: #faf5ef;
+  --color-ink-100: #f3eade;
+  --color-ink-200: #e7d8c6;
+  --color-ink-300: #cbb298;
+  --color-ink-400: #b18f6f;
+  --color-ink-500: #7b5b3f;
+  --color-ink-600: #5e4530;
+  --color-ink-700: #483525;
+  --color-ink-800: #33251a;
+  --color-ink-900: #241a12;
+  --color-ink-950: #17100b;
+
+  /* Taro takes emerald's place as the primary accent. */
+  --color-emerald-300: #dcc7f5;
+  --color-emerald-400: #c4a4ee;
+  --color-emerald-500: #9a6bd8;
+  --color-emerald-600: #7d4fc0;
+  --color-emerald-700: #67399f;
+  --color-emerald-950: #1f0f35;
+
+  /* Caramel takes teal's, so the accent gradients pour taro into brown sugar. */
+  --color-teal-400: #e0a86a;
+  --color-teal-500: #9c5c1a;
+  --color-teal-600: #85501a;
+
+  /* Syrup for the "heat" accent — the current role, the featured cert. */
+  --color-race-400: #d98b4a;
+  --color-race-500: #8a4b1e;
+  --color-race-600: #6d3b16;
+
+  /* Matcha survives in the ambient wash, which is the only place lime is used. */
+  --color-lime-300: #cfe0a4;
+  --color-lime-600: #6f8f3a;
+
+  /* Tailwind resolves .animate-ping through this, so the hero's status dot
+     stops pinging like a radar and swells like a bubble letting go. */
+  --animate-ping: bubble-pop 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Tapioca instead of a checkered flag: the same tile, drawn as pearls. Every
+   .checkers element sizes itself from --checker-size, so this follows along. */
+html[data-skin='boba'] .checkers {
+  background-image: radial-gradient(
+    currentColor calc(var(--checker-size, 0.75rem) / 4),
+    transparent 0
+  );
+}
+
+/* Boba motion — the racing loops all read as speed, which is the wrong idea in
+   a cup. Same elements, swapped for softer rhythms: only the animation name,
+   easing and duration are overridden, so the stat gauges keep the per-card
+   stagger they set inline.
+
+   Deliberately no new class names here. .redline, .checker-band, .flag-wave and
+   .animate-ping are already listed in both the .motion-still and the
+   reduced-motion blocks, so all of this stops with the pause button. */
+
+/* The gauges swell like liquid finding its level, instead of jittering at a
+   limiter. Still 90–100%, just rounder about getting there. */
+html[data-skin='boba'] .redline {
+  animation-name: bubble;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes bubble {
+  0%,
+  100% {
+    transform: scaleX(0.9);
+  }
+  35% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.965);
+  }
+  65% {
+    transform: scaleX(0.995);
+  }
+}
+
+/* Pearls drift up through the drink rather than scrolling past like a flag.
+   One tile of travel, so the loop is seamless whatever the element's width. */
+html[data-skin='boba'] .checker-band {
+  animation-name: pearls-rise;
+  animation-duration: 3.2s;
+}
+
+@keyframes pearls-rise {
+  to {
+    background-position-y: calc(var(--checker-size, 0.75rem) * -1);
+  }
+}
+
+/* The hero's patch bobs on the surface instead of rippling. Scaling from the
+   left edge would read as a stretch, so it grows from the middle. */
+html[data-skin='boba'] .flag-wave {
+  animation-name: bubble-bob;
+  animation-duration: 4.5s;
+  transform-origin: center;
+}
+
+@keyframes bubble-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.04);
+  }
+}
+
+@keyframes bubble-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
