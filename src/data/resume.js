@@ -40,7 +40,7 @@ export const experience = [
     roles: [{ title: 'Lead Full Stack Developer', period: 'August 2025 – Present' }],
     highlights: [
       {
-        text: 'Implemented and managed cloud-based solutions using AWS services including S3, Lambda, Kinesis and DynamoDB.',
+        text: 'Implemented and managed cloud-based solutions using AWS services including S3, Lambda, Kinesis, DynamoDB and Aurora.',
         tags: ['cloud'],
       },
       {
@@ -221,6 +221,7 @@ export const experience = [
 
 // get last item (first by time) from experience array and get year from start date
 const CAREER_START = parseInt(experience[experience.length - 1].start.split('-')[0])
+const WEB_DEV_START = parseInt(experience[experience.length - 2].start.split('-')[0])
 
 /** Headline numbers, ordered by magnitude, each pulled from a bullet below. */
 export const stats = [
@@ -228,6 +229,11 @@ export const stats = [
     value: new Date().getFullYear() - CAREER_START,
     suffix: '+',
     label: 'Years in tech',
+  },
+  {
+    value: new Date().getFullYear() - WEB_DEV_START,
+    suffix: '+',
+    label: 'Years in web development'
   },
   { value: 1000000, suffix: 's', label: 'Social posts automated' },
   { value: 20000, suffix: '+', label: 'Agent records piped daily' },
@@ -255,6 +261,7 @@ export const skills = [
       { name: 'AWS Lambda', tag: 'cloud' },
       { name: 'AWS ECS', tag: 'cloud' },
       { name: 'AWS RDS', tag: 'cloud' },
+      { name: 'AWS Aurora', tag: 'cloud' },
       { name: 'AWS Kinesis', tag: 'cloud' },
       { name: 'AWS DynamoDB', tag: 'cloud' },
       { name: 'Docker', tag: 'devops' },
