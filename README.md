@@ -23,7 +23,7 @@ npm run build    # → dist/
 npm run preview  # serve the production build locally
 ```
 
-Requires Node 20.19+ or 22.12+.
+Requires Node 24+.
 
 ## Editing the content
 

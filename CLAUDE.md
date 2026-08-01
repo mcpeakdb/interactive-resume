@@ -20,7 +20,7 @@ npm run format:check  # prettier --check .
 Both `lint` and `format:check` are clean — keep them that way. There is no test
 framework, so verification is lint + build + checking the page in a browser.
 
-Requires Node 20.19+ or 22.12+. CI pins Node 22.
+Requires Node 24+ (`.nvmrc` + `engines` pin it). CI pins Node 24.
 
 ## Stack
 

@@ -76,11 +76,7 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="ml-auto flex items-center gap-1 md:ml-0">
-        <SiteHeaderButton
-          icon="printer"
-          label="Print or save as PDF"
-          @click="print"
-        />
+        <SiteHeaderButton icon="printer" label="Print or save as PDF" @click="print" />
         <SiteHeaderButton
           :icon="isStill ? 'play' : 'pause'"
           :label="isStill ? 'Resume animations' : 'Pause animations'"
