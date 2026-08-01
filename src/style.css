@@ -97,8 +97,9 @@ html[data-skin='boba'] .checkers {
    .animate-ping are already listed in both the .motion-still and the
    reduced-motion blocks, so all of this stops with the pause button. */
 
-/* The gauges swell like liquid finding its level, instead of jittering at a
-   limiter. Still 90–100%, just rounder about getting there. */
+/* The gauge needles sway like something settling in liquid, instead of
+   jittering at a limiter. Same few degrees off the stop, just rounder about
+   getting there. */
 html[data-skin='boba'] .redline {
   animation-name: bubble;
   animation-timing-function: ease-in-out;
@@ -107,16 +108,16 @@ html[data-skin='boba'] .redline {
 @keyframes bubble {
   0%,
   100% {
-    transform: scaleX(0.9);
+    transform: rotate(-5.5deg);
   }
   35% {
-    transform: scaleX(1);
+    transform: rotate(-0.5deg);
   }
   50% {
-    transform: scaleX(0.965);
+    transform: rotate(-3.5deg);
   }
   65% {
-    transform: scaleX(0.995);
+    transform: rotate(-1.5deg);
   }
 }
 
@@ -300,32 +301,39 @@ html[data-skin='boba'] .flag-wave {
   );
 }
 
-/* Redline — a settled telemetry bar idles between 90% and 100% rather than
-   parking flat, the way a needle floats when an engine is held at the limiter.
-   Uneven stops so it reads as combustion, not as a metronome. */
+/* Redline — a needle held against the limiter never sits still, it floats a few
+   degrees off the stop. Uneven angles so it reads as combustion, not as a
+   metronome, and only ever backwards, since the stop is the stop.
+
+   Applied to a <g> inside the gauge, nested in the one the sweep rotates, so
+   the two transforms don't overwrite each other. The origin is the dial's pivot
+   in viewBox units — .motion-still zeroes the flutter without disturbing the
+   sweep, which rides an SVG transform attribute rather than CSS. */
 .redline {
   animation: redline 1.7s ease-in-out infinite;
+  transform-box: view-box;
+  transform-origin: 50px 50px;
 }
 
 @keyframes redline {
   0%,
   100% {
-    transform: scaleX(0.94);
+    transform: rotate(-4.5deg);
   }
   18% {
-    transform: scaleX(1);
+    transform: rotate(0deg);
   }
   34% {
-    transform: scaleX(0.91);
+    transform: rotate(-6.5deg);
   }
   52% {
-    transform: scaleX(0.99);
+    transform: rotate(-1deg);
   }
   70% {
-    transform: scaleX(0.9);
+    transform: rotate(-8deg);
   }
   86% {
-    transform: scaleX(0.97);
+    transform: rotate(-2.5deg);
   }
 }
 
@@ -483,6 +491,12 @@ html[data-skin='boba'] .flag-wave {
 
   .streak::after {
     display: none !important;
+  }
+
+  /* The stat dials don't print, so the readout no longer has a mouth to sit
+     in — drop the overlap that tucked it there. */
+  .gauge-readout {
+    margin-top: 0 !important;
   }
 
   .reveal-speed {
