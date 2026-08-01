@@ -134,16 +134,26 @@ green-tinted neutral) plus emerald/teal accents. Dark mode is class-based (`.dar
 `<html>`), resolved by an inline script in `index.html` before first paint.
 
 **Skins are a second, orthogonal axis.** `data-skin` on `<html>` (also resolved
-pre-paint) selects a palette. A skin adds no classes and touches no component: it
-re-declares the `@theme` custom properties under `html[data-skin='…']`, so every
-utility resolving a colour through them follows along. The element in the selector is
-what outranks `:root` — a bare `[data-skin]` ties on specificity. Each skin owns the
-whole ramp, light end and dark end, so it composes with the dark toggle.
+pre-paint) selects a palette. A skin adds no classes and, with one exception below,
+touches no component: it re-declares the `@theme` custom properties under
+`html[data-skin='…']`, so every utility resolving a colour through them follows along.
+The element in the selector is what outranks `:root` — a bare `[data-skin]` ties on
+specificity. Each skin owns the whole ramp, light end and dark end, so it composes with
+the dark toggle.
+
+The exception is `StatStrip`, the only place a skin swaps a component rather than
+restyling one: racing renders `StatCounter` (a speedometer), boba renders
+`BobaStatCounter` (a cup that fills with tea). Both take the same props and expose the
+same `start()`, so the strip is agnostic — but a cup can't be reached from custom
+properties. The swap remounts every counter at zero with the strip's
+IntersectionObserver already spent, so `StatStrip` re-runs the count itself when the
+skin changes. Prefer tokens for anything else; this is a shape change, not a palette one.
 
 Adding a skin means three edits: an entry in `SKINS` (`useSkin.js`), a token block in
 `style.css`, and the id in the pre-paint allowlist in `index.html`. Racing is the
 default; `boba` remaps ink to creams, emerald to taro, teal to caramel and race to
-brown sugar, and redraws `.checkers` as tapioca pearls. Keep new skins above 4.5:1 for
+brown sugar, redraws `.checkers` as tapioca pearls and swaps the stat counter for a cup.
+A new skin gets `StatCounter` unless it opts into its own. Keep new skins above 4.5:1 for
 body text — `scripts/check-contrast.mjs` only audits one palette at a time (it reads
 the last `--color-*` declaration wins, which is now the last skin block in the file).
 

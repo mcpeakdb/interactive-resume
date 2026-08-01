@@ -89,6 +89,7 @@ const bubble = (b, i) => ({
 // clipPath and gradient ids are document-global, so each cup needs its own.
 const uid = useId()
 const clipId = `cup-${uid}`
+const teaClipId = `tea-clip-${uid}`
 const teaId = `tea-${uid}`
 
 defineExpose({ start })
@@ -104,13 +105,20 @@ defineExpose({ start })
          It doesn't print either — on paper this collapses to number + label. -->
     <svg
       class="no-print mx-auto block h-24 w-auto sm:h-28"
-      viewBox="0 0 100 104"
+      viewBox="0 0 100 100"
       fill="none"
       aria-hidden="true"
     >
       <defs>
         <clipPath :id="clipId">
           <path :d="CUP" />
+        </clipPath>
+        <!-- Everything in the drink is clipped to the tea, not to the cup, so
+             the pearls surface as it rises instead of sitting in an empty cup
+             from the start. A clipPath carrying its own `clip-path` intersects
+             with it — the union a second shape here would give isn't wanted. -->
+        <clipPath :id="teaClipId" :clip-path="`url(#${clipId})`">
+          <rect x="0" :y="level" width="100" height="100" />
         </clipPath>
         <!-- userSpaceOnUse pins the gradient to the cup rather than to the
              liquid's own box, so the tea doesn't restripe as it rises. Stops
@@ -130,16 +138,11 @@ defineExpose({ start })
       </defs>
 
       <!-- Empty cup: a faint wash, so it reads as a vessel before it fills. -->
-      <path
-        :d="CUP"
-        class="fill-ink-200 dark:fill-ink-800"
-        fill-opacity="0.55"
-        fill-rule="nonzero"
-      />
+      <path :d="CUP" class="fill-ink-200 dark:fill-ink-800" fill-opacity="0.55" />
 
-      <g :clip-path="`url(#${clipId})`">
-        <!-- Tall enough to cover the cup from `level` down, whatever the fill. -->
-        <rect x="0" :y="level" width="100" height="80" :fill="`url(#${teaId})`" />
+      <g :clip-path="`url(#${teaClipId})`">
+        <!-- The clip is the shape of the tea, so this only has to cover it. -->
+        <rect x="0" y="0" width="100" height="100" :fill="`url(#${teaId})`" />
         <circle
           v-for="(p, i) in PEARLS"
           :key="i"
