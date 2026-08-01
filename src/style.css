@@ -89,35 +89,37 @@ html[data-skin='boba'] .checkers {
 }
 
 /* Boba motion — the racing loops all read as speed, which is the wrong idea in
-   a cup. Same elements, swapped for softer rhythms: only the animation name,
-   easing and duration are overridden, so the stat gauges keep the per-card
-   stagger they set inline.
+   a cup. Mostly the same elements, swapped for softer rhythms: only the
+   animation name, easing and duration are overridden.
 
-   Deliberately no new class names here. .redline, .checker-band, .flag-wave and
-   .animate-ping are already listed in both the .motion-still and the
-   reduced-motion blocks, so all of this stops with the pause button. */
+   .checker-band, .flag-wave and .animate-ping are already listed in both the
+   .motion-still and the reduced-motion blocks, so those stop with the pause
+   button for free. .boba-bubble is new, and is listed in both. */
 
-/* The gauge needles sway like something settling in liquid, instead of
-   jittering at a limiter. Same few degrees off the stop, just rounder about
-   getting there. */
-html[data-skin='boba'] .redline {
-  animation-name: bubble;
-  animation-timing-function: ease-in-out;
+/* Bubbles climbing through the tea in BobaStatCounter. They're clipped to the
+   cup, so they pop at the surface without knowing where it is; the fade at the
+   end keeps that from being an abrupt cut. Travel is in user units — the cup's
+   viewBox is 104 tall, so this is most of its height.
+
+   Held-still leaves them parked at the base of the cup, where they read as a
+   few small bubbles caught in the drink. */
+.boba-bubble {
+  animation: boba-bubble 3.6s linear infinite;
+  opacity: 0.5;
 }
 
-@keyframes bubble {
-  0%,
+@keyframes boba-bubble {
+  0% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+  20%,
+  85% {
+    opacity: 0.5;
+  }
   100% {
-    transform: rotate(-5.5deg);
-  }
-  35% {
-    transform: rotate(-0.5deg);
-  }
-  50% {
-    transform: rotate(-3.5deg);
-  }
-  65% {
-    transform: rotate(-1.5deg);
+    transform: translateY(-56px);
+    opacity: 0;
   }
 }
 
@@ -188,6 +190,7 @@ html[data-skin='boba'] .flag-wave {
     .checker-band,
     .flag-wave,
     .redline,
+    .boba-bubble,
     .animate-ping {
       animation: none !important;
       transform: none !important;
@@ -385,6 +388,7 @@ html[data-skin='boba'] .flag-wave {
 .motion-still .checker-band,
 .motion-still .flag-wave,
 .motion-still .redline,
+.motion-still .boba-bubble,
 .motion-still .animate-ping {
   animation: none !important;
   transform: none !important;
