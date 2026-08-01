@@ -259,6 +259,7 @@ export const skills = [
       { name: 'AWS DynamoDB', tag: 'cloud' },
       { name: 'Docker', tag: 'devops' },
       { name: 'CI/CD pipelines', tag: 'devops' },
+      { name: 'Git', tag: 'devops' },
     ],
   },
   {
@@ -269,12 +270,11 @@ export const skills = [
     ],
   },
   {
-    group: 'Mobile & Tools',
+    group: 'Mobile',
     items: [
       { name: 'Native Android', tag: 'mobile' },
       { name: 'Native iOS', tag: 'mobile' },
       { name: 'Capacitor', tag: 'mobile' },
-      { name: 'Git', tag: 'devops' },
     ],
   },
 ]
