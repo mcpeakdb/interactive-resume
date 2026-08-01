@@ -51,6 +51,7 @@
        rather than stop. Switch them off outright. */
     .checker-band,
     .flag-wave,
+    .redline,
     .animate-ping {
       animation: none !important;
       transform: none !important;
@@ -164,6 +165,35 @@
   );
 }
 
+/* Redline — a settled telemetry bar idles between 90% and 100% rather than
+   parking flat, the way a needle floats when an engine is held at the limiter.
+   Uneven stops so it reads as combustion, not as a metronome. */
+.redline {
+  animation: redline 1.7s ease-in-out infinite;
+}
+
+@keyframes redline {
+  0%,
+  100% {
+    transform: scaleX(0.94);
+  }
+  18% {
+    transform: scaleX(1);
+  }
+  34% {
+    transform: scaleX(0.91);
+  }
+  52% {
+    transform: scaleX(0.99);
+  }
+  70% {
+    transform: scaleX(0.9);
+  }
+  86% {
+    transform: scaleX(0.97);
+  }
+}
+
 /* A light sweeps across on hover, like a car going past. The element needs
    its own stacking context and no children positioned outside its box. */
 .streak {
@@ -211,6 +241,7 @@
    that would otherwise loop forever. */
 .motion-still .checker-band,
 .motion-still .flag-wave,
+.motion-still .redline,
 .motion-still .animate-ping {
   animation: none !important;
   transform: none !important;

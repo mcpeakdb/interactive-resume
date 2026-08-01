@@ -30,6 +30,7 @@ onBeforeUnmount(() => observer?.disconnect())
       :key="stat.label"
       :ref="(el) => (counters[i] = el)"
       v-bind="stat"
+      :index="i"
     />
   </dl>
 </template>
