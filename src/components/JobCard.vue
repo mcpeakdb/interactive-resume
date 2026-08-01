@@ -50,20 +50,21 @@ const duration = computed(() => {
       dimmed ? 'opacity-40 saturate-0' : 'hover:ring-ink-300 dark:hover:ring-ink-700'
     "
   >
-    <!-- Timeline node, aligned to the rail drawn by ExperienceSection. -->
+    <!-- Timeline node, aligned to the rail drawn by ExperienceSection. The
+         current role flies the green flag; finished stints get the checker. -->
     <span
-      class="no-print absolute top-8 -left-[1.9rem] hidden h-3 w-3 rounded-full ring-4 sm:block"
+      class="no-print absolute top-8 -left-[1.9rem] hidden h-3 w-3 ring-4 sm:block"
       :class="
         job.current
-          ? 'bg-emerald-500 ring-emerald-500/20'
-          : 'bg-ink-300 dark:bg-ink-700 ring-ink-50 dark:ring-ink-950'
+          ? 'rounded-full bg-emerald-500 ring-emerald-500/20'
+          : 'checkers text-ink-500 dark:text-ink-400 ring-ink-50 dark:ring-ink-950 rounded-[2px] [--checker-size:0.375rem]'
       "
       aria-hidden="true"
     />
 
     <button
       type="button"
-      class="flex w-full items-start gap-4 p-5 text-left sm:p-6"
+      class="streak flex w-full items-start gap-4 rounded-t-2xl p-5 text-left sm:p-6"
       :aria-expanded="expanded"
       :aria-controls="`${job.id}-detail`"
       @click="emit('toggle')"
@@ -75,9 +76,10 @@ const duration = computed(() => {
           </h3>
           <span
             v-if="job.current"
-            class="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[0.7rem] font-semibold text-emerald-700 ring-1 ring-emerald-500/25 dark:text-emerald-300"
+            class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[0.7rem] font-semibold text-emerald-700 ring-1 ring-emerald-500/25 dark:text-emerald-300"
           >
-            Current
+            <AppIcon name="flag" :size="11" />
+            On track
           </span>
         </div>
 
@@ -98,13 +100,13 @@ const duration = computed(() => {
             class="text-ink-700 dark:text-ink-200 flex flex-wrap items-baseline gap-x-2 text-sm"
           >
             <span class="font-medium">{{ role.title }}</span>
-            <span class="text-ink-400 dark:text-ink-500 text-xs">{{ role.period }}</span>
+            <span class="text-ink-500 dark:text-ink-400 text-xs">{{ role.period }}</span>
           </li>
         </ul>
       </div>
 
       <span
-        class="no-print text-ink-400 dark:text-ink-500 mt-1 flex shrink-0 items-center gap-2 text-xs"
+        class="no-print text-ink-500 dark:text-ink-400 mt-1 flex shrink-0 items-center gap-2 text-xs"
       >
         <span v-if="hasFilters" class="tabular-nums"
           >{{ matchCount }} match{{ matchCount === 1 ? '' : 'es' }}</span
@@ -126,7 +128,7 @@ const duration = computed(() => {
     >
       <div class="overflow-hidden">
         <div class="border-ink-200 dark:border-ink-800 mx-5 border-t pt-5 pb-6 sm:mx-6">
-          <p v-if="dimmed" class="text-ink-400 dark:text-ink-500 text-sm italic">
+          <p v-if="dimmed" class="text-ink-500 dark:text-ink-400 text-sm italic">
             Nothing here matches the current filter.
           </p>
 
@@ -149,7 +151,7 @@ const duration = computed(() => {
 
             <div v-if="visibleProjects.length" class="mt-6">
               <h4
-                class="text-ink-400 dark:text-ink-500 mb-3 flex items-center gap-2 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
+                class="text-ink-500 dark:text-ink-400 mb-3 flex items-center gap-2 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
               >
                 <AppIcon name="spark" :size="13" />
                 Major projects
@@ -180,7 +182,7 @@ const duration = computed(() => {
               :href="job.url"
               target="_blank"
               rel="noreferrer"
-              class="no-print text-ink-500 dark:text-ink-400 mt-5 inline-flex items-center gap-1.5 text-sm hover:text-emerald-600 dark:hover:text-emerald-400"
+              class="no-print text-ink-500 dark:text-ink-400 mt-5 inline-flex items-center gap-1.5 text-sm hover:text-emerald-700 dark:hover:text-emerald-400"
             >
               <AppIcon name="link" :size="14" />
               {{ job.site }}

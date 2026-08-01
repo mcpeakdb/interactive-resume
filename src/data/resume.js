@@ -233,7 +233,7 @@ export const stats = [
   {
     value: new Date().getFullYear() - WEB_DEV_START,
     suffix: '+',
-    label: 'Years in web development'
+    label: 'Years in web development',
   },
   { value: 1000000, suffix: 's', label: 'Social posts automated' },
   { value: 20000, suffix: '+', label: 'Agent records piped daily' },

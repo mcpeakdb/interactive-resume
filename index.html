@@ -17,6 +17,14 @@
           ? stored === 'dark'
           : window.matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.classList.toggle('dark', dark)
+
+        // Same for motion, so the looping animations never get a frame to run
+        // for someone who has asked for them to be held still.
+        const motion = localStorage.getItem('motion')
+        const still = motion
+          ? motion === 'still'
+          : window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        document.documentElement.classList.toggle('motion-still', still)
       })()
     </script>
   </head>

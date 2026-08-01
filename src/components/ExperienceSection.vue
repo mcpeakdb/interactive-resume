@@ -24,6 +24,9 @@ watch(hasFilters, (on) => {
     : new Set([experience[0].id])
 })
 
+// The oldest role's start year — the moment the lights went out.
+const startYear = experience[experience.length - 1].start.split('-')[0]
+
 const totalCount = computed(() =>
   experience.reduce((n, job) => n + job.highlights.length + job.projects.length, 0),
 )
@@ -62,6 +65,19 @@ const visibleCount = computed(() =>
             :expanded="openIds.has(job.id)"
             @toggle="toggle(job.id)"
           />
+        </div>
+
+        <!-- Start/finish line, sitting under the oldest role. -->
+        <div v-reveal class="no-print mt-7 flex items-center gap-3">
+          <span
+            class="checkers checker-band text-ink-400 dark:text-ink-600 flex-1 rounded-[2px] [--checker-size:0.75rem]"
+            aria-hidden="true"
+          />
+          <span
+            class="text-ink-500 dark:text-ink-400 shrink-0 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
+          >
+            Lights out · {{ startYear }}
+          </span>
         </div>
       </div>
     </div>

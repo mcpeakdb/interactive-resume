@@ -17,7 +17,7 @@ defineProps({
   <div v-reveal class="no-print mb-8">
     <div class="flex flex-wrap items-center gap-2">
       <span
-        class="text-ink-400 dark:text-ink-500 mr-1 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
+        class="text-ink-500 dark:text-ink-400 mr-1 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
       >
         Filter
       </span>

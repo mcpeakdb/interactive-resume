@@ -9,8 +9,12 @@ defineProps({
 <template>
   <div v-reveal class="mb-8">
     <p
-      class="mb-2 font-mono text-xs tracking-[0.2em] text-emerald-600 uppercase dark:text-emerald-400"
+      class="mb-2 flex items-center gap-2.5 font-mono text-xs tracking-[0.2em] text-emerald-700 uppercase dark:text-emerald-400"
     >
+      <span
+        class="checkers text-ink-800 dark:text-ink-100 h-3 w-6 shrink-0 rounded-[2px] [--checker-size:0.75rem]"
+        aria-hidden="true"
+      />
       {{ index }}
     </p>
     <h2

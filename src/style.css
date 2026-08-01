@@ -8,6 +8,12 @@
     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
 
+  /* Race red — used sparingly, for heat: the current role, the featured cert.
+     Emerald stays the primary accent and reads as the green flag. */
+  --color-race-400: #ff453a;
+  --color-race-500: #e10600;
+  --color-race-600: #b30500;
+
   /* Ink — a green-tinted neutral ramp, so even the "gray" carries the accent. */
   --color-ink-50: #f5f9f6;
   --color-ink-100: #e8f0ea;
@@ -40,14 +46,25 @@
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+
+    /* The racing loops run forever, so a near-zero duration would thrash
+       rather than stop. Switch them off outright. */
+    .checker-band,
+    .flag-wave,
+    .animate-ping {
+      animation: none !important;
+      transform: none !important;
+    }
   }
 
   body {
     @apply bg-ink-50 text-ink-600 dark:bg-ink-950 dark:text-ink-300 font-sans antialiased;
   }
 
+  /* emerald-500 only reaches 2.3:1 on the light background, below the 3:1 that
+     WCAG 1.4.11 wants from a focus indicator. These clear it in both themes. */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-emerald-500;
+    @apply dark:outline-emerald-400 outline-2 outline-offset-2 outline-emerald-700;
   }
 
   ::selection {
@@ -71,6 +88,22 @@
     transform: none;
   }
 
+  /* Speed variant of the reveal — enters from the left with a slight lean,
+     like something passing the camera. Driven by `v-reveal.speed`. */
+  .reveal-speed {
+    opacity: 0;
+    transform: translateX(-1.75rem) skewX(-7deg);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-speed.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
   .card {
     @apply bg-white dark:bg-ink-900 ring-ink-200 dark:ring-ink-800 rounded-2xl ring-1;
   }
@@ -78,6 +111,113 @@
   .section-shell {
     @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
   }
+}
+
+/* ── Racing kit ──────────────────────────────────────────────────────────── */
+
+/* Checkerboard drawn in currentColor, so it inherits light/dark automatically.
+   One conic tile is 2×2 squares, so a square is --checker-size / 2. */
+.checkers {
+  background-image: conic-gradient(
+    currentColor 0 25%,
+    transparent 0 50%,
+    currentColor 0 75%,
+    transparent 0
+  );
+  background-size: var(--checker-size, 0.75rem) var(--checker-size, 0.75rem);
+}
+
+/* A start/finish band: exactly two rows of squares, scrolling to imply motion. */
+.checker-band {
+  height: var(--checker-size, 0.75rem);
+  animation: checkers-run 2s linear infinite;
+}
+
+@keyframes checkers-run {
+  to {
+    background-position-x: var(--checker-size, 0.75rem);
+  }
+}
+
+/* Held flags ripple instead of scrolling. */
+.flag-wave {
+  animation: flag-wave 3.5s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    transform: skewY(0deg) translateY(0);
+  }
+  50% {
+    transform: skewY(-1.5deg) translateY(-1px);
+  }
+}
+
+/* Faint diagonal draft lines, layered over the hero wash. */
+.speed-lines {
+  background-image: repeating-linear-gradient(
+    102deg,
+    transparent 0 0.5rem,
+    color-mix(in oklab, currentColor 7%, transparent) 0.5rem 0.5625rem
+  );
+}
+
+/* A light sweeps across on hover, like a car going past. The element needs
+   its own stacking context and no children positioned outside its box. */
+.streak {
+  position: relative;
+  overflow: hidden;
+}
+
+.streak::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    color-mix(in oklab, var(--color-emerald-300) 50%, transparent) 50%,
+    transparent 58%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark .streak::after {
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    color-mix(in oklab, var(--color-emerald-400) 22%, transparent) 50%,
+    transparent 58%
+  );
+}
+
+.streak:hover::after,
+.streak:focus-within::after {
+  transform: translateX(130%);
+}
+
+/* Lift the content above the sweep. Painted over the text it would drop the
+   muted labels to 4.49:1, just under the 4.5:1 minimum. */
+.streak > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Held-still mode — the user-facing switch for WCAG 2.2.2. Stops everything
+   that would otherwise loop forever. */
+.motion-still .checker-band,
+.motion-still .flag-wave,
+.motion-still .animate-ping {
+  animation: none !important;
+  transform: none !important;
+}
+
+.motion-still .streak::after {
+  display: none;
 }
 
 /* Ambient background wash — decorative only. */
@@ -164,8 +304,24 @@
     padding-right: 0 !important;
   }
 
-  .aurora {
+  .aurora,
+  .speed-lines {
     background-image: none !important;
+  }
+
+  /* Keep one checkered rule as a divider on paper; drop the rest of the
+     racing chrome and stop every loop. */
+  .checkers {
+    animation: none !important;
+  }
+
+  .streak::after {
+    display: none !important;
+  }
+
+  .reveal-speed {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   section {

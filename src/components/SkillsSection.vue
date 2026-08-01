@@ -26,7 +26,7 @@ const styleFor = (tag) => tagStyle(TAGS[tag]?.color ?? 'slate')
           class="card p-5"
         >
           <h3
-            class="text-ink-400 dark:text-ink-500 mb-4 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
+            class="text-ink-500 dark:text-ink-400 mb-4 font-mono text-[0.7rem] tracking-[0.15em] uppercase"
           >
             {{ group.group }}
           </h3>

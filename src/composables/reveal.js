@@ -1,6 +1,7 @@
 /**
  * v-reveal — fades/slides an element in the first time it scrolls into view.
  * `v-reveal="150"` delays the transition by 150ms for staggered groups.
+ * `v-reveal.speed` swaps the upward drift for a lean in from the left.
  * Honors prefers-reduced-motion by revealing immediately.
  */
 const reduceMotion =
@@ -30,7 +31,7 @@ export const reveal = {
       el.classList.add('is-revealed')
       return
     }
-    el.classList.add('reveal')
+    el.classList.add(binding.modifiers.speed ? 'reveal-speed' : 'reveal')
     if (binding.value) el.style.transitionDelay = `${binding.value}ms`
     getObserver().observe(el)
   },

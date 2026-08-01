@@ -25,6 +25,12 @@ const PATHS = {
   spark: ['M12 3v5M12 16v5M3 12h5M16 12h5', 'm6.5 6.5 3 3M14.5 14.5l3 3M17.5 6.5l-3 3M9.5 14.5l-3 3'],
   cap: ['m3 9 9-4.5L21 9l-9 4.5z', 'M7 11v5c0 1.1 2.2 2 5 2s5-.9 5-2v-5'],
   badge: ['M12 14.5a5 5 0 1 0 0-10 5 5 0 0 0 0 10', 'm8.5 13.5-1 7 4.5-2.2 4.5 2.2-1-7'],
+  // Deliberately coarse — a 2×2 grid still reads as "checkered" at 11px.
+  flag: ['M5 21V3.5', 'M5 3.5h14v9H5', 'M5 8h14M12 3.5v9'],
+  stopwatch: ['M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16', 'M12 9v4l2.5 2', 'M9.5 2.5h5', 'm18.5 5.5 1.5-1.5'],
+  gauge: ['M4 17a8 8 0 1 1 16 0', 'm12 13 4-3.5', 'M12 17a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4'],
+  pause: ['M9.5 5.5v13M14.5 5.5v13'],
+  play: ['M8 5.5v13l11-6.5z'],
 }
 
 const paths = computed(() => PATHS[props.name] ?? [])

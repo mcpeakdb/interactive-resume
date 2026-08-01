@@ -7,11 +7,14 @@ import StatStrip from './StatStrip.vue'
 <template>
   <section id="about" class="relative overflow-hidden pt-10 pb-16 sm:pt-16">
     <div class="aurora pointer-events-none absolute inset-x-0 -top-32 h-[36rem]" />
+    <div
+      class="speed-lines no-print text-ink-500 dark:text-ink-300 pointer-events-none absolute inset-x-0 -top-32 h-[36rem] opacity-60"
+    />
 
     <div class="section-shell relative">
       <p
         v-reveal
-        class="text-ink-400 dark:text-ink-500 mb-4 flex items-center gap-2 font-mono text-xs tracking-[0.2em] uppercase"
+        class="text-ink-500 dark:text-ink-400 mb-4 flex items-center gap-2 font-mono text-xs tracking-[0.2em] uppercase"
       >
         <span class="relative flex h-2 w-2">
           <span
@@ -19,19 +22,31 @@ import StatStrip from './StatStrip.vue'
           />
           <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
         </span>
-        Open to conversations
+        Green flag — open to conversations
       </p>
 
       <h1
-        v-reveal="60"
+        v-reveal.speed="60"
         class="text-ink-900 dark:text-ink-50 text-4xl font-bold tracking-tight text-balance sm:text-6xl"
       >
         {{ profile.name }}
       </h1>
 
+      <!-- Flag stripe under the name, like a livery accent. -->
+      <div v-reveal.speed="100" class="mt-4 flex items-center gap-3">
+        <span
+          class="checkers flag-wave text-ink-800 dark:text-ink-100 h-3 w-16 rounded-[2px] [--checker-size:0.75rem]"
+          aria-hidden="true"
+        />
+        <span
+          class="to-race-500/70 h-[3px] w-24 rounded-full bg-gradient-to-r from-emerald-500"
+          aria-hidden="true"
+        />
+      </div>
+
       <p
-        v-reveal="120"
-        class="mt-3 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-xl font-semibold text-transparent sm:text-2xl dark:from-emerald-400 dark:to-teal-400"
+        v-reveal.speed="140"
+        class="mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-xl font-semibold text-transparent sm:text-2xl dark:from-emerald-400 dark:to-teal-400"
       >
         {{ profile.title }}
       </p>

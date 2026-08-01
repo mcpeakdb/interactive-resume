@@ -26,9 +26,14 @@ import SkillsSection from './components/SkillsSection.vue'
     <ContactSection />
   </main>
 
-  <footer class="no-print border-ink-200 dark:border-ink-800 border-t">
+  <footer class="no-print">
+    <!-- Crossing the line — full-width checker to close the page out. -->
     <div
-      class="section-shell text-ink-400 dark:text-ink-500 flex flex-wrap items-center justify-between gap-2 py-6 text-xs"
+      class="checkers checker-band text-ink-300 dark:text-ink-700 [--checker-size:0.75rem]"
+      aria-hidden="true"
+    />
+    <div
+      class="section-shell text-ink-500 dark:text-ink-400 flex flex-wrap items-center justify-between gap-2 py-6 text-xs"
     >
       <p>© {{ new Date().getFullYear() }} Danny McPeak Jr.</p>
       <p class="font-mono">Built with Vue 3 + Tailwind CSS</p>

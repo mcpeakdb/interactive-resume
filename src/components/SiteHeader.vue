@@ -1,22 +1,35 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { profile, sections } from '../data/resume'
+import { useMotion } from '../composables/useMotion'
 import { useScrollSpy } from '../composables/useScrollSpy'
 import { useTheme } from '../composables/useTheme'
-import AppIcon from './AppIcon.vue'
+import SiteHeaderButton from './SiteHeaderButton.vue'
 
 const { active } = useScrollSpy(sections.map((s) => s.id))
 const { isDark, toggle } = useTheme()
+const { isStill, toggle: toggleMotion } = useMotion()
 
 const scrolled = ref(false)
-const onScroll = () => (scrolled.value = window.scrollY > 24)
+const progress = ref(0)
 const print = () => window.print()
+
+// Lap progress: how far through the page you are, 0–100.
+function onScroll() {
+  scrolled.value = window.scrollY > 24
+  const max = document.documentElement.scrollHeight - window.innerHeight
+  progress.value = max > 0 ? Math.min((window.scrollY / max) * 100, 100) : 0
+}
 
 onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll)
 })
-onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onScroll)
+})
 </script>
 
 <template>
@@ -63,25 +76,40 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       </nav>
 
       <div class="ml-auto flex items-center gap-1 md:ml-0">
-        <button
-          type="button"
-          class="text-ink-500 dark:text-ink-400 hover:bg-ink-200/60 dark:hover:bg-ink-800 hover:text-ink-900 dark:hover:text-white grid h-9 w-9 place-items-center rounded-lg transition-colors duration-200"
-          title="Print / save as PDF"
-          aria-label="Print or save as PDF"
+        <SiteHeaderButton
+          icon="printer"
+          label="Print or save as PDF"
           @click="print"
-        >
-          <AppIcon name="printer" :size="18" />
-        </button>
-        <button
-          type="button"
-          class="text-ink-500 dark:text-ink-400 hover:bg-ink-200/60 dark:hover:bg-ink-800 hover:text-ink-900 dark:hover:text-white grid h-9 w-9 place-items-center rounded-lg transition-colors duration-200"
-          :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-          :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        />
+        <SiteHeaderButton
+          :icon="isStill ? 'play' : 'pause'"
+          :label="isStill ? 'Resume animations' : 'Pause animations'"
+          :pressed="isStill"
+          @click="toggleMotion"
+        />
+        <SiteHeaderButton
+          :icon="isDark ? 'sun' : 'moon'"
+          :label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
           @click="toggle"
-        >
-          <AppIcon :name="isDark ? 'sun' : 'moon'" :size="18" />
-        </button>
+        />
       </div>
+    </div>
+
+    <!-- Lap progress. The track runs green-flag emerald and heats to red as it
+         approaches the checkered flag pinned at the finish. -->
+    <div class="absolute inset-x-0 bottom-0 h-1 overflow-hidden" aria-hidden="true">
+      <div class="bg-ink-200/50 dark:bg-ink-800/50 absolute inset-0" />
+      <div
+        class="absolute inset-y-0 left-0 overflow-hidden transition-[width] duration-150 ease-out"
+        :style="{ width: `${progress}%` }"
+      >
+        <!-- Full-width gradient inside a clipped box, so a given point on the
+             track keeps its colour instead of the ramp squashing as it fills. -->
+        <div class="to-race-500 h-full w-screen bg-gradient-to-r from-emerald-500" />
+      </div>
+      <span
+        class="checkers text-ink-800 dark:text-ink-100 absolute inset-y-0 right-0 w-4 [--checker-size:0.25rem]"
+      />
     </div>
   </header>
 </template>

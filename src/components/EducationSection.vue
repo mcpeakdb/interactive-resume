@@ -14,7 +14,7 @@ import SectionHeading from './SectionHeading.vue'
           v-for="(school, i) in education"
           :key="school.school"
           v-reveal="i * 80"
-          class="card hover:ring-ink-300 dark:hover:ring-ink-700 p-5 transition duration-300 hover:-translate-y-1"
+          class="card streak hover:ring-ink-300 dark:hover:ring-ink-700 p-5 transition duration-300 hover:-translate-y-1"
         >
           <AppIcon name="cap" :size="22" class="mb-3 text-emerald-500" />
           <h3 class="text-ink-900 dark:text-ink-50 font-semibold">
@@ -23,7 +23,7 @@ import SectionHeading from './SectionHeading.vue'
           <p class="text-ink-600 dark:text-ink-300 mt-1.5 text-sm">
             {{ school.credential }}
           </p>
-          <p class="text-ink-400 dark:text-ink-500 mt-2 text-xs tabular-nums">
+          <p class="text-ink-500 dark:text-ink-400 mt-2 text-xs tabular-nums">
             {{ school.location }} · {{ school.period }}
           </p>
         </div>
@@ -32,7 +32,7 @@ import SectionHeading from './SectionHeading.vue'
           v-for="(cert, i) in certifications"
           :key="cert.name"
           v-reveal="(education.length + i) * 80"
-          class="card p-5 transition duration-300 hover:-translate-y-1"
+          class="card streak p-5 transition duration-300 hover:-translate-y-1"
           :class="
             cert.featured
               ? 'ring-2 ring-amber-500/40 hover:ring-amber-500/70'
@@ -61,7 +61,7 @@ import SectionHeading from './SectionHeading.vue'
           >
             {{ cert.code }}
           </p>
-          <p class="text-ink-400 dark:text-ink-500 mt-2 text-xs">{{ cert.date }}</p>
+          <p class="text-ink-500 dark:text-ink-400 mt-2 text-xs">{{ cert.date }}</p>
         </div>
       </div>
     </div>

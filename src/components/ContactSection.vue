@@ -11,6 +11,10 @@ import SectionHeading from './SectionHeading.vue'
 
       <div v-reveal class="card relative overflow-hidden p-6 sm:p-10">
         <div class="aurora pointer-events-none absolute inset-0 opacity-70" />
+        <div
+          class="checkers checker-band text-ink-300 dark:text-ink-700 absolute inset-x-0 top-0 [--checker-size:0.75rem]"
+          aria-hidden="true"
+        />
 
         <div class="relative">
           <p
@@ -33,7 +37,7 @@ import SectionHeading from './SectionHeading.vue'
             </a>
           </div>
 
-          <p class="text-ink-400 dark:text-ink-500 mt-8 text-xs">
+          <p class="text-ink-500 dark:text-ink-400 mt-8 text-xs">
             Contact details and references available on request.
           </p>
         </div>
